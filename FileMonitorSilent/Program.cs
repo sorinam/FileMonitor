@@ -10,20 +10,33 @@ namespace FileMonitorFullSilentUninstall
 {
     class Program
     {
-        const string productName = "Temasoft FileMonitor Server";
+        const string productServerName = "Temasoft FileMonitor Server";
+        const string productAgentName = "Temasoft FileMonitor Agent";
+
         static void Main(string[] args)
         {
-            var uninstallString = GetUninstallStringOfApplication(productName);
 
-            if (uninstallString != "")
+            var uninstallStringServer = GetUninstallStringOfApplication(productServerName);
+            var uninstallStringAgent = GetUninstallStringOfApplication(productAgentName);
+
+            if (uninstallStringServer != "")
             {
-                Console.WriteLine("Application '{0}' is installed .", productName);
-                Console.WriteLine("Unnstall String is: {0}", uninstallString);
-                RunUninstallCommand(uninstallString);
-
+                Console.WriteLine("Application '{0}' is installed .", productServerName);
+                Console.WriteLine("Unnstall String is: {0}", uninstallStringServer);
+                RunUninstallCommand(uninstallStringServer);
             }
             else
-                Console.WriteLine("Application '{0}' is not installed!", productName);
+
+                if (uninstallStringAgent != "")
+            {
+                Console.WriteLine("Application '{0}' is installed .", productAgentName);
+                Console.WriteLine("Unnstall String is: {0}", uninstallStringAgent);
+                RunUninstallCommand(uninstallStringAgent);
+            }
+            else
+            {
+                Console.WriteLine("FileMonitor is not installed!");
+            }
             Console.ReadKey();
         }
 

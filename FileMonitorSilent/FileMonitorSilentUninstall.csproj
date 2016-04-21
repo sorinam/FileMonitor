@@ -7,8 +7,8 @@
     <ProjectGuid>{9C5A8BC9-BF56-4A08-A05E-B1BCF91D3620}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FileMonitorSilent</RootNamespace>
-    <AssemblyName>FileMonitorSilent</AssemblyName>
+    <RootNamespace>FileMonitorSilentUninstall</RootNamespace>
+    <AssemblyName>FileMonitorSilentUninstall</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

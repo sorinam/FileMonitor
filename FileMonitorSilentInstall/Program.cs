@@ -22,12 +22,25 @@ namespace FileMonitorSilentInstall
                     Console.WriteLine("Please specify a folder path containing ServerInstaller and configuration file!");
                     break;
                 case 1:
-                    RunServerInstaller(args[0]);
+                    if (args[0] == "/?")
+                    {
+                        DisplayHelp();
+                    }
+                    else
+                    {
+                        RunServerInstaller(args[0]);
+                    }
                     break;
                 default:
                     Console.WriteLine("Please provide only one parameter!");
                     break;
             }
+        }
+
+        private static void DisplayHelp()
+        {
+            Console.WriteLine("\n\tPlease specify a folder path containing ServerInstaller and configuration file!");
+            Console.WriteLine("\n\t Example:  FileMonitorSilentInstall c:\\TestPath ");
         }
 
         private static void RunServerInstaller(string path)
@@ -49,13 +62,13 @@ namespace FileMonitorSilentInstall
             string fullPathInstallConfig = Path.Combine(path, installConfigFile);
             string programDataInstallConfig = Path.Combine(@"c:\ProgramData", installConfigFile);
 
-            if (System.IO.File.Exists(fullPathServerInstaller) && System.IO.File.Exists(fullPathInstallConfig))
+            if (File.Exists(fullPathServerInstaller) && File.Exists(fullPathInstallConfig))
             {
                 PerformCommands(fullPathServerInstaller, fullPathInstallConfig, programDataInstallConfig);
             }
             else
             {
-                var errorMessage = "Some needed file are missing";
+                var errorMessage = "Some mandatory files are missing";
                 WriteLogsIntoAFile(errorMessage);
             }
         }
@@ -76,9 +89,6 @@ namespace FileMonitorSilentInstall
                 GetAllProcessesAndKillConfigProcess(processConfigName);
                 File.Copy(fullPathInstallConfig, programDataInstallConfig, true);
 
-                Thread.Sleep(150000);
-
-                //Process.Start(postInstallConfigFile);
                 var result = LaunchProcessAndWaitForProcessToFinish(postInstallConfigFile, 60000);
                 if (result != 0)
                 {
@@ -97,7 +107,7 @@ namespace FileMonitorSilentInstall
         {
             bool found = false;
             int count = 0;
-            while (!found && count < 100)
+            while (!found && count < 60)
             {
                 var proceses = Process.GetProcessesByName(processConfigName);
 
@@ -148,9 +158,6 @@ namespace FileMonitorSilentInstall
 
             try
             {
-                ProcessStartInfo startinfo = new ProcessStartInfo(commandLine);
-                startinfo.WindowStyle = ProcessWindowStyle.Normal;
-                //startinfo.UseShellExecute = true;
                 Process p = Process.Start(commandLine, "/install");
                 if (timeToWaitForProcessToFinishInMilliseconds == 0)
                 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.Threading;
 
 namespace FileMonitorFullSilentUninstall
 {
@@ -15,35 +16,32 @@ namespace FileMonitorFullSilentUninstall
             var uninstallStringServer = GetUninstallStringOfApplication(productServerName);
             var uninstallStringAgent = GetUninstallStringOfApplication(productAgentName);
 
-            //if (uninstallStringAgent != "")
-            //{
-            //    Console.WriteLine("Application '{0}' is installed .", productAgentName);
-            //    Console.WriteLine("Uninstall String is: {0}", uninstallStringAgent);
-            //    RunUninstallCommand(uninstallStringAgent);
-            //}
-           
-            //else
-                 if (uninstallStringServer != "")
-            {
-                Console.WriteLine("Application '{0}' is installed .", productServerName);
-                Console.WriteLine("Uninstall String is: {0}", uninstallStringServer);
-                RunUninstallCommand(uninstallStringServer);
-            }
-
-            else
+            if ((uninstallStringAgent == "") && (uninstallStringServer == ""))
             {
                 Console.WriteLine("FileMonitor is not installed on this computer!");
+                Thread.Sleep(1000);
             }
-            Console.ReadKey();
+            else
+            {
+                if (uninstallStringAgent != "")
+                {
+                    Console.WriteLine("Application '{0}' will be uninstalled !", productAgentName);
+                    RunUninstallCommand(uninstallStringAgent);
+                }
+                if (uninstallStringServer != "")
+                {
+                    Console.WriteLine("Application '{0}' will be uninstalled !", productServerName);
+                    RunUninstallCommand(uninstallStringServer);
+                }
+            }
         }
 
         private static void RunUninstallCommand(string uninstallString)
         {
             string arguments = " /quiet /norestart ";
-            //Console.WriteLine("Arguments:{0}",uninstallString+ arguments);
             string GUID = uninstallString.Substring(14);
-            string parameters ="/X "+GUID + arguments;
-            Console.WriteLine("Uninstall command is: MsiExec.exe{0}", parameters);
+            string parameters = "/X " + GUID + arguments;
+            Console.WriteLine("\t Uninstall command  is: MsiExec.exe{0}\n", parameters);
             try
             {
                 var process = Process.Start("MsiExec.exe", parameters);

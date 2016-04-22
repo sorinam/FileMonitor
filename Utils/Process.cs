@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
@@ -7,6 +6,7 @@ namespace Utils
 {
     public class Process
     {
+        const string processLogsFile = @"ProcessUtils.txt";
         string processName;
 
         //public string ProcessName
@@ -52,6 +52,8 @@ namespace Utils
             }
             else
             {
+                var fileLogs = new Logs(processLogsFile);
+                fileLogs.WriteIntoALogFile("Process " + processName + " is not running");
                // WriteLogsIntoAFile("Process " + processName + " is not running");
             }
         }
@@ -64,6 +66,8 @@ namespace Utils
             }
             catch (Exception e)
             {
+                var fileLogs = new Logs(processLogsFile);
+                fileLogs.WriteIntoALogFile("Kill Process : " + e.Message);
                 //WriteLogsIntoAFile(e.Message);
             }
         }
@@ -91,7 +95,9 @@ namespace Utils
             }
             catch (Exception e)
             {
-               // WriteLogsIntoAFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
+                var fileLogs = new Logs(processLogsFile);
+                fileLogs.WriteIntoALogFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
+                // WriteLogsIntoAFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
             }
 
             return result;

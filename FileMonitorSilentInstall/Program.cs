@@ -52,7 +52,9 @@ namespace FileMonitorSilentInstall
             else
             {
                 var logMessages = "This path: " + path + " doesn't exists !";
-                WriteLogsIntoAFile(logMessages);
+                //WriteLogsIntoAFile(logMessages);
+                var logsFile = new Utils.Logs(logFile);
+                logsFile.WriteIntoALogFile(logMessages);
             }
         }
 
@@ -69,7 +71,9 @@ namespace FileMonitorSilentInstall
             else
             {
                 var errorMessage = "Some mandatory files are missing";
-                WriteLogsIntoAFile(errorMessage);
+                //WriteLogsIntoAFile(errorMessage);
+                var logsFile = new Utils.Logs(logFile);
+                logsFile.WriteIntoALogFile(errorMessage);
             }
         }
 
@@ -93,19 +97,25 @@ namespace FileMonitorSilentInstall
                 if (result != 0)
                 {
                     var errorMessage = "An error was occured on PostInstallConfig or timed out!!";
-                    WriteLogsIntoAFile(errorMessage);
+                    //WriteLogsIntoAFile(errorMessage);
+                    var logsFile = new Utils.Logs(logFile);
+                    logsFile.WriteIntoALogFile(errorMessage);
                 }
                 else
                 {
                     var Message = "Application was succesfully installed !!!";
                     Console.WriteLine(Message);
-                    WriteLogsIntoAFile(Message);
+                    //WriteLogsIntoAFile(Message);
+                    var logsFile = new Utils.Logs(logFile);
+                    logsFile.WriteIntoALogFile(Message);
                 }
             }
             else
             {
                 var errorMessage = "Something was wrong or timed out!!";
-                WriteLogsIntoAFile(errorMessage);
+                //WriteLogsIntoAFile(errorMessage);
+                var logsFile = new Utils.Logs(logFile);
+                logsFile.WriteIntoALogFile(errorMessage);
             }
         }
 

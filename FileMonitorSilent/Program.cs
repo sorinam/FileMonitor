@@ -15,20 +15,21 @@ namespace FileMonitorFullSilentUninstall
             var uninstallStringServer = GetUninstallStringOfApplication(productServerName);
             var uninstallStringAgent = GetUninstallStringOfApplication(productAgentName);
 
-            if (uninstallStringServer != "")
-            {
-                Console.WriteLine("Application '{0}' is installed .", productServerName);
-                Console.WriteLine("Unnstall String is: {0}", uninstallStringServer);
-                RunUninstallCommand(uninstallStringServer);
-            }
-            else
-
-                if (uninstallStringAgent != "")
+            if (uninstallStringAgent != "")
             {
                 Console.WriteLine("Application '{0}' is installed .", productAgentName);
                 Console.WriteLine("Unnstall String is: {0}", uninstallStringAgent);
                 RunUninstallCommand(uninstallStringAgent);
             }
+           
+            else
+                 if (uninstallStringServer != "")
+            {
+                Console.WriteLine("Application '{0}' is installed .", productServerName);
+                Console.WriteLine("Unnstall String is: {0}", uninstallStringServer);
+                RunUninstallCommand(uninstallStringServer);
+            }
+
             else
             {
                 Console.WriteLine("FileMonitor is not installed on this computer!");

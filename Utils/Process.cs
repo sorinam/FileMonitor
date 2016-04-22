@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Utils
 {
-    public class ProcessUtils
+    public class Process
     {
         string processName;
 
@@ -15,18 +15,18 @@ namespace Utils
         //    get { return processName; }
         //}
 
-        public ProcessUtils(string procName)
+        public Process(string procName)
         {
             processName = procName;
         }
 
-        public bool WaitUntilAProcessRunning()
+        public bool WaitUntilProcessRunning()
         {
             bool found = false;
             int count = 0;
             while (!found && count < 600)
             {
-                var proceses = Process.GetProcessesByName(processName);
+                var proceses = System.Diagnostics.Process.GetProcessesByName(processName);
 
                 if (proceses.Count() > 0)
                 {
@@ -41,11 +41,11 @@ namespace Utils
 
         public void GetProcessesListAndKillProcess()
         {
-            var proceses = Process.GetProcessesByName(processName);
+            var proceses = System.Diagnostics.Process.GetProcessesByName(processName);
 
             if (proceses.Count() > 0)
             {
-                foreach (Process proces in proceses)
+                foreach (System.Diagnostics.Process proces in proceses)
                 {
                     KillProcess(proces);
                 }
@@ -56,7 +56,7 @@ namespace Utils
             }
         }
 
-        private static void KillProcess(Process proces)
+        private static void KillProcess(System.Diagnostics.Process proces)
         {
             try
             {
@@ -68,13 +68,13 @@ namespace Utils
             }
         }
 
-        private static int LaunchProcessAndWaitForProcessToFinish(string fileName, int timeToWaitForProcessToFinishInMilliseconds = 0)
+        public int LaunchProcessAndWaitForProcessToFinish(string fileName, int timeToWaitForProcessToFinishInMilliseconds = 0)
         {
             int result = 0;
 
             try
             {
-                Process p = Process.Start(fileName, "/install");
+                System.Diagnostics.Process p = System.Diagnostics.Process.Start(fileName, "/install");
                 if (timeToWaitForProcessToFinishInMilliseconds == 0)
                 {
                     p.WaitForExit();

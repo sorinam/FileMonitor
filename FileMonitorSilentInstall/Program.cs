@@ -66,19 +66,21 @@ namespace FileMonitorSilentInstall
 
             if (File.Exists(fullPathServerInstaller) && File.Exists(fullPathInstallConfig))
             {
-                PerformCommands(fullPathServerInstaller, fullPathInstallConfig, programDataInstallConfig);
+                PerformInstallerCommands(fullPathServerInstaller, fullPathInstallConfig, programDataInstallConfig);
             }
             else
             {
-                var errorMessage = "Some mandatory files are missing";
+                var errorMessage = "Some required files are missing";
                
                 var logsFile = new Utils.Logs(logFile);
                 logsFile.WriteIntoALogFile(errorMessage);
             }
         }
 
-        private static void PerformCommands(string fullPathServerInstaller, string fullPathInstallConfig, string programDataInstallConfig)
+        private static void PerformInstallerCommands(string fullPathServerInstaller, string fullPathInstallConfig, string programDataInstallConfig)
         {
+            var logsFile = new Utils.Logs(logFile);
+
             if (File.Exists(programDataInstallConfig))
             {
                 File.Delete(programDataInstallConfig);
@@ -86,116 +88,34 @@ namespace FileMonitorSilentInstall
 
             Process.Start(fullPathServerInstaller, "/i /q");
             Console.WriteLine("Installing FileMonitor Server...");
-            bool proceessIsRunning = WaitUntilConfigProcessRunning();
-
+            var configProcess = new Utils.Process(processConfigName);
+           
+            bool proceessIsRunning = configProcess.WaitUntilProcessRunning();
             if (proceessIsRunning)
             {
-                GetAllProcessesAndKillConfigProcess(processConfigName);
+                configProcess.GetProcessesListAndKillProcess();
                 File.Copy(fullPathInstallConfig, programDataInstallConfig, true);
+
                 Console.WriteLine("Configure FileMonitor Server...");
-                var result = LaunchProcessAndWaitForProcessToFinish(postInstallConfigFile, 60000);
+                var result = configProcess.LaunchProcessAndWaitForProcessToFinish(postInstallConfigFile, 60000);
                 if (result != 0)
                 {
                     var errorMessage = "An error was occured on PostInstallConfig or timed out!!";
-                    
-                    var logsFile = new Utils.Logs(logFile);
                     logsFile.WriteIntoALogFile(errorMessage);
                 }
                 else
                 {
                     var Message = "Application was succesfully installed !!!";
                     Console.WriteLine(Message);
-                    Thread.Sleep(1000);
-                    var logsFile = new Utils.Logs(logFile);
                     logsFile.WriteIntoALogFile(Message);
                 }
             }
             else
             {
                 var errorMessage = "Something was wrong or timed out!!";
-               
-                var logsFile = new Utils.Logs(logFile);
                 logsFile.WriteIntoALogFile(errorMessage);
             }
         }
 
-        private static bool WaitUntilConfigProcessRunning()
-        {
-            bool found = false;
-            int count = 0;
-            while (!found && count <600)
-            {
-                var proceses = Process.GetProcessesByName(processConfigName);
-
-                if (proceses.Count() > 0)
-                {
-                    found = true;
-                }
-
-                Thread.Sleep(1000);
-                count++;
-            }
-
-            return found;
-        }
-
-        private static void GetAllProcessesAndKillConfigProcess(string processName)
-        {
-            var proceses = Process.GetProcessesByName(processName);
-
-            if (proceses.Count() > 0)
-            {
-                foreach (Process proces in proceses)
-                {
-                    KillProcess(proces);
-                }
-            }
-            else
-            {
-                //WriteLogsIntoAFile("Process " + processName + " is not running");
-            }
-        }
-
-        private static void KillProcess(Process proces)
-        {
-            try
-            {
-                proces.Kill();
-            }
-            catch (Exception e)
-            {
-                //WriteLogsIntoAFile(e.Message);
-            }
-        }
-
-        private static int LaunchProcessAndWaitForProcessToFinish(string commandLine, int timeToWaitForProcessToFinishInMilliseconds = 0)
-        {
-            int result = 0;
-
-            try
-            {
-                Process p = Process.Start(commandLine, "/install");
-                if (timeToWaitForProcessToFinishInMilliseconds == 0)
-                {
-                    p.WaitForExit();
-                }
-                else
-                {
-                    p.WaitForExit(timeToWaitForProcessToFinishInMilliseconds);
-                }
-
-                if (p.HasExited)
-                {
-                    result = p.ExitCode;
-                }
-            }
-            catch (Exception e)
-            {
-                //WriteLogsIntoAFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
-            }
-
-            return result;
-        }
-      
     }
 }

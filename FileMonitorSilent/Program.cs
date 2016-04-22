@@ -15,18 +15,18 @@ namespace FileMonitorFullSilentUninstall
             var uninstallStringServer = GetUninstallStringOfApplication(productServerName);
             var uninstallStringAgent = GetUninstallStringOfApplication(productAgentName);
 
-            if (uninstallStringAgent != "")
-            {
-                Console.WriteLine("Application '{0}' is installed .", productAgentName);
-                Console.WriteLine("Unnstall String is: {0}", uninstallStringAgent);
-                RunUninstallCommand(uninstallStringAgent);
-            }
+            //if (uninstallStringAgent != "")
+            //{
+            //    Console.WriteLine("Application '{0}' is installed .", productAgentName);
+            //    Console.WriteLine("Uninstall String is: {0}", uninstallStringAgent);
+            //    RunUninstallCommand(uninstallStringAgent);
+            //}
            
-            else
+            //else
                  if (uninstallStringServer != "")
             {
                 Console.WriteLine("Application '{0}' is installed .", productServerName);
-                Console.WriteLine("Unnstall String is: {0}", uninstallStringServer);
+                Console.WriteLine("Uninstall String is: {0}", uninstallStringServer);
                 RunUninstallCommand(uninstallStringServer);
             }
 

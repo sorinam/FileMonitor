@@ -60,7 +60,7 @@ namespace FileMonitorSilentInstall
         {
             string fullPathServerInstaller = Path.Combine(path, serverInstallerKit);
             string fullPathInstallConfig = Path.Combine(path, installConfigFile);
-            string programDataInstallConfig = Path.Combine(@"c:\ProgramData", installConfigFile);
+            string programDataInstallConfig = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), installConfigFile);
 
             if (File.Exists(fullPathServerInstaller) && File.Exists(fullPathInstallConfig))
             {

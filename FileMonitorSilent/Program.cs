@@ -41,7 +41,9 @@ namespace FileMonitorFullSilentUninstall
         {
             string arguments = " /quiet /norestart ";
             //Console.WriteLine("Arguments:{0}",uninstallString+ arguments);
-            string parameters = uninstallString.Substring(11) + arguments;
+            string GUID = uninstallString.Substring(14);
+            string parameters ="/X "+GUID + arguments;
+            Console.WriteLine("Uninstall command is: MsiExec.exe{0}", parameters);
             try
             {
                 var process = Process.Start("MsiExec.exe", parameters);

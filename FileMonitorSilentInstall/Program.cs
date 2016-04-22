@@ -95,6 +95,12 @@ namespace FileMonitorSilentInstall
                     var errorMessage = "An error was occured on PostInstallConfig or timed out!!";
                     WriteLogsIntoAFile(errorMessage);
                 }
+                else
+                {
+                    var Message = "Application was succesfully installed !!!";
+                    Console.WriteLine(Message);
+                    WriteLogsIntoAFile(Message);
+                }
             }
             else
             {

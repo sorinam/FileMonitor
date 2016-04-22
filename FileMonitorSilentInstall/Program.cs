@@ -51,7 +51,7 @@ namespace FileMonitorSilentInstall
             }
             else
             {
-                var logMessages = "This path: " + path + " doesn't exists";
+                var logMessages = "This path: " + path + " doesn't exists !";
                 WriteLogsIntoAFile(logMessages);
             }
         }

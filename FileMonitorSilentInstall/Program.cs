@@ -107,7 +107,7 @@ namespace FileMonitorSilentInstall
         {
             bool found = false;
             int count = 0;
-            while (!found && count < 60)
+            while (!found && count <600)
             {
                 var proceses = Process.GetProcessesByName(processConfigName);
 

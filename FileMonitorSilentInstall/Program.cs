@@ -52,7 +52,7 @@ namespace FileMonitorSilentInstall
             else
             {
                 var logMessages = "This path: " + path + " doesn't exists !";
-                //WriteLogsIntoAFile(logMessages);
+             
                 var logsFile = new Utils.Logs(logFile);
                 logsFile.WriteIntoALogFile(logMessages);
             }
@@ -71,7 +71,7 @@ namespace FileMonitorSilentInstall
             else
             {
                 var errorMessage = "Some mandatory files are missing";
-                //WriteLogsIntoAFile(errorMessage);
+               
                 var logsFile = new Utils.Logs(logFile);
                 logsFile.WriteIntoALogFile(errorMessage);
             }
@@ -85,19 +85,19 @@ namespace FileMonitorSilentInstall
             }
 
             Process.Start(fullPathServerInstaller, "/i /q");
-
+            Console.WriteLine("Installing FileMonitor Server...");
             bool proceessIsRunning = WaitUntilConfigProcessRunning();
 
             if (proceessIsRunning)
             {
                 GetAllProcessesAndKillConfigProcess(processConfigName);
                 File.Copy(fullPathInstallConfig, programDataInstallConfig, true);
-
+                Console.WriteLine("Configure FileMonitor Server...");
                 var result = LaunchProcessAndWaitForProcessToFinish(postInstallConfigFile, 60000);
                 if (result != 0)
                 {
                     var errorMessage = "An error was occured on PostInstallConfig or timed out!!";
-                    //WriteLogsIntoAFile(errorMessage);
+                    
                     var logsFile = new Utils.Logs(logFile);
                     logsFile.WriteIntoALogFile(errorMessage);
                 }
@@ -105,7 +105,7 @@ namespace FileMonitorSilentInstall
                 {
                     var Message = "Application was succesfully installed !!!";
                     Console.WriteLine(Message);
-                    //WriteLogsIntoAFile(Message);
+                    Thread.Sleep(1000);
                     var logsFile = new Utils.Logs(logFile);
                     logsFile.WriteIntoALogFile(Message);
                 }
@@ -113,7 +113,7 @@ namespace FileMonitorSilentInstall
             else
             {
                 var errorMessage = "Something was wrong or timed out!!";
-                //WriteLogsIntoAFile(errorMessage);
+               
                 var logsFile = new Utils.Logs(logFile);
                 logsFile.WriteIntoALogFile(errorMessage);
             }
@@ -152,7 +152,7 @@ namespace FileMonitorSilentInstall
             }
             else
             {
-                WriteLogsIntoAFile("Process " + processName + " is not running");
+                //WriteLogsIntoAFile("Process " + processName + " is not running");
             }
         }
 
@@ -164,7 +164,7 @@ namespace FileMonitorSilentInstall
             }
             catch (Exception e)
             {
-                WriteLogsIntoAFile(e.Message);
+                //WriteLogsIntoAFile(e.Message);
             }
         }
 
@@ -191,22 +191,11 @@ namespace FileMonitorSilentInstall
             }
             catch (Exception e)
             {
-                WriteLogsIntoAFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
+                //WriteLogsIntoAFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
             }
 
             return result;
         }
-
-        private static void WriteLogsIntoAFile(string LogMessage)
-        {
-            if (System.IO.Directory.Exists(logFile))
-            {
-                File.AppendAllText(logFile, LogMessage);
-            }
-            else
-            {
-                System.IO.File.WriteAllText(logFile, LogMessage);
-            }
-        }
+      
     }
 }

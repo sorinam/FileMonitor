@@ -9,7 +9,7 @@ namespace FileMonitorFullSilentUninstall
     {
         const string productServerName = "Temasoft FileMonitor Server";
         const string productAgentName = "Temasoft FileMonitor Agent";
-        const string logFile = @"uninstallFileMonitor.txt";
+        const string logFile = @"UninstallFileMonitor.txt";
 
         static void Main(string[] args)
         {

@@ -17,13 +17,11 @@ namespace Utils
         
         public void WriteIntoALogFile(string LogMessage)
         {
-            if (Directory.Exists(logFile))
+            var log = "\r\n"+DateTime.Now.ToShortDateString() + "  " + DateTime.Now.ToShortTimeString() + " " + LogMessage;
+           
+            using (StreamWriter w = File.AppendText(logFile))
             {
-                File.AppendAllText(logFile, LogMessage);
-            }
-            else
-            {
-                File.WriteAllText(logFile, LogMessage);
+                w.Write(log);
             }
         }
     }

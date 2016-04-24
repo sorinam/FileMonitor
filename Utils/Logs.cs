@@ -15,7 +15,7 @@ namespace Utils
             logFile = fileName;
         }
         
-        public void WriteIntoALogFile(string LogMessage)
+        public void WriteMessageToLogFile(string LogMessage)
         {
             var log = "\r\n"+DateTime.Now.ToShortDateString() + "  " + DateTime.Now.ToShortTimeString() + " " + LogMessage;
            

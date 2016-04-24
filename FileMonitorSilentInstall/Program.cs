@@ -2,13 +2,12 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 
 namespace FileMonitorSilentInstall
 {
     class Program
     {
-        const string logFile = @"SilentInstall.txt";
+        const string logFile = @"InstallFileMonitor.txt";
         const string serverInstallerKit = "ServerInstaller.exe";
         const string installConfigFile = "silentinstallconfig.xml";
         const string processConfigName = "PostInstallServerConfig";
@@ -54,7 +53,7 @@ namespace FileMonitorSilentInstall
                 var logMessages = "This path: " + path + " doesn't exists !";
              
                 var logsFile = new Utils.Logs(logFile);
-                logsFile.WriteIntoALogFile(logMessages);
+                logsFile.WriteMessageToLogFile(logMessages);
             }
         }
 
@@ -73,7 +72,7 @@ namespace FileMonitorSilentInstall
                 var errorMessage = "Some required files are missing";
                
                 var logsFile = new Utils.Logs(logFile);
-                logsFile.WriteIntoALogFile(errorMessage);
+                logsFile.WriteMessageToLogFile(errorMessage);
             }
         }
 
@@ -101,19 +100,19 @@ namespace FileMonitorSilentInstall
                 if (result != 0)
                 {
                     var errorMessage = "An error was occured on PostInstallConfig or timed out!!";
-                    logsFile.WriteIntoALogFile(errorMessage);
+                    logsFile.WriteMessageToLogFile(errorMessage);
                 }
                 else
                 {
                     var Message = "Application was succesfully installed !!!";
                     Console.WriteLine(Message);
-                    logsFile.WriteIntoALogFile(Message);
+                    logsFile.WriteMessageToLogFile(Message);
                 }
             }
             else
             {
                 var errorMessage = "Something was wrong or timed out!!";
-                logsFile.WriteIntoALogFile(errorMessage);
+                logsFile.WriteMessageToLogFile(errorMessage);
             }
         }
 

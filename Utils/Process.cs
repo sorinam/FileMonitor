@@ -97,8 +97,7 @@ namespace Utils
             {
                 var fileLogs = new Logs(processLogsFile);
                 fileLogs.WriteMessageToLogFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
-                // WriteLogsIntoAFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
-            }
+               }
 
             return result;
         }
@@ -116,7 +115,6 @@ namespace Utils
             {
                 var fileLogs = new Logs(processLogsFile);
                 fileLogs.WriteMessageToLogFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
-                // WriteLogsIntoAFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
             }
 
             return result;

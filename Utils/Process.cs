@@ -72,13 +72,13 @@ namespace Utils
             }
         }
 
-        public int LaunchProcessAndWaitForProcessToFinish(string fileName, int timeToWaitForProcessToFinishInMilliseconds = 0)
+        public int LaunchProcessWithArgsAndWaitForProcessToFinish(string fileName,string arguments, int timeToWaitForProcessToFinishInMilliseconds = 0)
         {
             int result = 0;
 
             try
             {
-                System.Diagnostics.Process p = System.Diagnostics.Process.Start(fileName, "/install");
+                System.Diagnostics.Process p = System.Diagnostics.Process.Start(fileName, arguments);
                 if (timeToWaitForProcessToFinishInMilliseconds == 0)
                 {
                     p.WaitForExit();
@@ -92,6 +92,25 @@ namespace Utils
                 {
                     result = p.ExitCode;
                 }
+            }
+            catch (Exception e)
+            {
+                var fileLogs = new Logs(processLogsFile);
+                fileLogs.WriteMessageToLogFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
+                // WriteLogsIntoAFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
+            }
+
+            return result;
+        }
+
+        public int LaunchProcessWithoutArgs()
+        {
+            int result = 0;
+
+            try
+            {
+                System.Diagnostics.Process p = System.Diagnostics.Process.Start(processName);
+                
             }
             catch (Exception e)
             {

@@ -102,7 +102,7 @@ namespace FileMonitorSilentInstall
                 File.Copy(fullPathInstallConfig, programDataInstallConfig, true);
 
                 Console.WriteLine("Configure FileMonitor Server...");
-                var result = configProcess.LaunchProcessAndWaitForProcessToFinish(postInstallConfigFile, 60000);
+                var result = configProcess.LaunchProcessWithArgsAndWaitForProcessToFinish(postInstallConfigFile, "/install", 60000);
                 if (result != 0)
                 {
                     var errorMessage = "An error was occured on PostInstallConfig or timed out!!";

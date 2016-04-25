@@ -82,9 +82,15 @@ namespace FileMonitorSilentInstall
 
             if (File.Exists(programDataInstallConfig))
             {
-                File.Delete(programDataInstallConfig);
+                try
+                {
+                    File.Delete(programDataInstallConfig);
+                }
+                catch (Exception e)
+                {
+                    logsFile.WriteMessageToLogFile("Exception when try to delete silentconfig file  : " + e.Message);
+                }
             }
-
             Process.Start(fullPathServerInstaller, "/i /q");
             Console.WriteLine("Installing FileMonitor Server...");
             var configProcess = new Utils.Process(processConfigName);

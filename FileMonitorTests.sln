@@ -6,13 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileMonitorSilentUninstall", "FileMonitorSilentUninstall\FileMonitorSilentUninstall.csproj", "{9C5A8BC9-BF56-4A08-A05E-B1BCF91D3620}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileMonitorSilentInstall", "FileMonitorSilentInstall\FileMonitorSilentInstall.csproj", "{DCC5F6F7-B8EA-4D51-9339-1B57BD8E84E7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C7DCEE7A-8135-455F-B743-9E0CBFB47AE4} = {C7DCEE7A-8135-455F-B743-9E0CBFB47AE4}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{C7DCEE7A-8135-455F-B743-9E0CBFB47AE4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UninstallUI", "UninstallUI\UninstallUI.csproj", "{A1345C58-D8FE-4B26-AFCA-15FEC061BAC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,14 +21,6 @@ Global
 		{DCC5F6F7-B8EA-4D51-9339-1B57BD8E84E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCC5F6F7-B8EA-4D51-9339-1B57BD8E84E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCC5F6F7-B8EA-4D51-9339-1B57BD8E84E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C7DCEE7A-8135-455F-B743-9E0CBFB47AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7DCEE7A-8135-455F-B743-9E0CBFB47AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7DCEE7A-8135-455F-B743-9E0CBFB47AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7DCEE7A-8135-455F-B743-9E0CBFB47AE4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A1345C58-D8FE-4B26-AFCA-15FEC061BAC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1345C58-D8FE-4B26-AFCA-15FEC061BAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1345C58-D8FE-4B26-AFCA-15FEC061BAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1345C58-D8FE-4B26-AFCA-15FEC061BAC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

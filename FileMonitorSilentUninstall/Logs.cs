@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Utils
+namespace FileMonitorSilentUninstall
 {
-    public class Logs
+    class Logs
     {
         string logFile;
         public Logs(string fileName)
         {
             logFile = fileName;
         }
-        
+
         public void WriteMessageToLogFile(string LogMessage)
         {
-            var log = "\r\n"+DateTime.Now.ToShortDateString() + "  " + DateTime.Now.ToShortTimeString() + " " + LogMessage;
-           
+            var log = "\r\n" + DateTime.Now.ToShortDateString() + "  " + DateTime.Now.ToShortTimeString() + " " + LogMessage;
+
             using (StreamWriter w = File.AppendText(logFile))
             {
                 w.Write(log);

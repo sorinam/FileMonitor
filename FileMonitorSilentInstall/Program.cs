@@ -52,7 +52,7 @@ namespace FileMonitorSilentInstall
             {
                 var logMessages = "This path: " + path + " doesn't exists !";
              
-                var logsFile = new Utils.Logs(logFile);
+                var logsFile = new ULogs(logFile);
                 logsFile.WriteMessageToLogFile(logMessages);
             }
         }
@@ -71,14 +71,14 @@ namespace FileMonitorSilentInstall
             {
                 var errorMessage = "Some required files are missing";
                
-                var logsFile = new Utils.Logs(logFile);
+                var logsFile = new ULogs(logFile);
                 logsFile.WriteMessageToLogFile(errorMessage);
             }
         }
 
         private static void PerformInstallerCommands(string fullPathServerInstaller, string fullPathInstallConfig, string programDataInstallConfig)
         {
-            var logsFile = new Utils.Logs(logFile);
+            var logsFile = new ULogs(logFile);
 
             if (File.Exists(programDataInstallConfig))
             {
@@ -91,35 +91,25 @@ namespace FileMonitorSilentInstall
                     logsFile.WriteMessageToLogFile("Exception when try to delete silentconfig file  : " + e.Message);
                 }
             }
-            Process.Start(fullPathServerInstaller, "/i /q");
-            Console.WriteLine("Installing FileMonitor Server...");
-            var configProcess = new Utils.Process(processConfigName);
-           
-            bool proceessIsRunning = configProcess.WaitUntilProcessRunning();
-            if (proceessIsRunning)
-            {
-                configProcess.GetProcessesListAndKillProcess();
-                File.Copy(fullPathInstallConfig, programDataInstallConfig, true);
 
-                Console.WriteLine("Configure FileMonitor Server...");
-                var result = configProcess.LaunchProcessWithArgsAndWaitForProcessToFinish(postInstallConfigFile, "/install", 60000);
-                if (result != 0)
-                {
-                    var errorMessage = "An error was occured on PostInstallConfig or timed out!!";
-                    logsFile.WriteMessageToLogFile(errorMessage);
-                }
-                else
-                {
-                    var Message = "Application was succesfully installed !!!";
-                    Console.WriteLine(Message);
-                    logsFile.WriteMessageToLogFile(Message);
-                }
-            }
-            else
+            File.Copy(fullPathInstallConfig, programDataInstallConfig, true);
+           
+            Console.WriteLine("Installing FileMonitor Server...");
+            var process = new Process
             {
-                var errorMessage = "Something was wrong or timed out!!";
-                logsFile.WriteMessageToLogFile(errorMessage);
-            }
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = fullPathServerInstaller,
+                    Arguments = "/i /q"
+                }
+            };
+            process.Start();
+            process.WaitForExit();
+            var message = string.Format("FileMonitor Server was installed; Exit Code {0} .", process.ExitCode);
+            Console.WriteLine(message);
+
+            logsFile.WriteMessageToLogFile(message);
+
         }
 
     }

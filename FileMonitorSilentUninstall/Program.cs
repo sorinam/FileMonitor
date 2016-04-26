@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using FileMonitorSilentUninstall;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -13,7 +14,7 @@ namespace FileMonitorFullSilentUninstall
 
         static void Main(string[] args)
         {
-            var logsFile = new Utils.Logs(logFile);
+            var logsFile = new Logs(logFile);
 
             var uninstallStringServer = GetUninstallStringOfApplication(productServerName);
             var uninstallStringAgent = GetUninstallStringOfApplication(productAgentName);
@@ -48,7 +49,7 @@ namespace FileMonitorFullSilentUninstall
     
         private static void RunUninstallCommand(string uninstallString)
         {
-            var logsFile = new Utils.Logs(logFile);
+            var logsFile = new Logs(logFile);
             string arguments = " /quiet /norestart ";
             string GUID = uninstallString.Substring(14);
             string parameters = "/X " + GUID + arguments;

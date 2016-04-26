@@ -52,7 +52,7 @@ namespace Utils
             }
             else
             {
-                var fileLogs = new Logs(processLogsFile);
+                var fileLogs = new ULogs(processLogsFile);
                 fileLogs.WriteMessageToLogFile("Process " + processName + " is not running");
                // WriteLogsIntoAFile("Process " + processName + " is not running");
             }
@@ -66,7 +66,7 @@ namespace Utils
             }
             catch (Exception e)
             {
-                var fileLogs = new Logs(processLogsFile);
+                var fileLogs = new ULogs(processLogsFile);
                 fileLogs.WriteMessageToLogFile("Kill Process : " + e.Message);
                 //WriteLogsIntoAFile(e.Message);
             }
@@ -95,7 +95,7 @@ namespace Utils
             }
             catch (Exception e)
             {
-                var fileLogs = new Logs(processLogsFile);
+                var fileLogs = new ULogs(processLogsFile);
                 fileLogs.WriteMessageToLogFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
                }
 
@@ -113,7 +113,7 @@ namespace Utils
             }
             catch (Exception e)
             {
-                var fileLogs = new Logs(processLogsFile);
+                var fileLogs = new ULogs(processLogsFile);
                 fileLogs.WriteMessageToLogFile("LaunchProcessAndWaitForProcessToFinish : " + e.Message);
             }
 

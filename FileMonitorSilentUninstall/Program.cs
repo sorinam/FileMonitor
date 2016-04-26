@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Threading;
+using AutoItX3Lib;
 
 namespace FileMonitorFullSilentUninstall
 {
@@ -49,6 +50,7 @@ namespace FileMonitorFullSilentUninstall
     
         private static void RunUninstallCommand(string uninstallString)
         {
+            AutoItX3 autoIT = new AutoItX3();
             var logsFile = new Logs(logFile);
             string arguments = " /quiet /norestart ";
             string GUID = uninstallString.Substring(14);
@@ -58,8 +60,14 @@ namespace FileMonitorFullSilentUninstall
             try
             {
                 var process = Process.Start("MsiExec.exe", parameters);
+                Thread.Sleep(5000);
+                //Process.Start(@"c:\temp\CloseFMServerUninstallDialog.exe");
+                autoIT.WinWait("Temasoft FileMonitor Server");
+                Thread.Sleep(1000);
+                autoIT.WinClose("Temasoft FileMonitor Server");
                 process.WaitForExit();
                 message = String.Format("Exit Code MsiExec: {0} ", process.ExitCode);
+
             }
             catch (Exception e)
             {
